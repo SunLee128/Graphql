@@ -1,5 +1,6 @@
-import { buildSchema } from 'graphql';
-const schema = buildSchema(`
+import { resolvers } from './resolvers';
+import { makeExecutableSchema } from 'graphql-tools';
+const typeDefs = `
   type Friend {
     id: ID, 
     firstName: String, 
@@ -7,7 +8,13 @@ const schema = buildSchema(`
     gender: Gender,
     age: Int,
     language: String, 
-    emails: String
+    emails: String, 
+    contacts: [Contact]
+  }
+
+  type Contact {
+    firstName: String, 
+    lastName: String
   }
 
   enum Gender {
@@ -27,13 +34,17 @@ const schema = buildSchema(`
     gender: Gender, 
     age: Int,
     language: String, 
-    emails: String
+    emails: String, 
+    contacts: [ContactInput]
   }
-  
+  input ContactInput {
+    firstName: String, 
+    lastName: String
+  }
 
   type Mutation {
     createFriend(input: FriendInput): Friend
   }
-`);
-
-export default schema;
+`;
+const schema = makeExecutableSchema({ typeDefs, resolvers})
+export {schema};
