@@ -12,6 +12,14 @@ const typeDefs = `
     contacts: [Contact]
   }
 
+  type Alien {
+    id: ID,
+    firstName: String, 
+    lastName: String,
+    planet: String
+
+  }
+
   type Contact {
     firstName: String, 
     lastName: String
@@ -46,5 +54,5 @@ const typeDefs = `
     createFriend(input: FriendInput): Friend
   }
 `;
-const schema = makeExecutableSchema({ typeDefs, resolvers})
-export {schema};
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+export { schema };
